@@ -15,6 +15,7 @@ This project contains scripts to format Engagebay data in Excel sheets, addressi
 
 ## Usage
 
+Make sure your original excel file is in the same directory as the .mjs files
 
 ### 1. Phone Number Formatter (`formatPhoneNumber.mjs`)
 
@@ -40,11 +41,26 @@ To use:
 2. Follow the prompts to enter:
    - The input file name (e.g., input.xlsx)
    - The output file name (e.g., output.xlsx)
-   - The column letter for the Owner column (e.g., C)
+   - The column letters for the Owner column (or any column with Hubspot User as desired property type) (e.g., C,AW,BA)
 
 Notes:
 - The script will keep only the name part, removing everything after and including the opening parenthesis.
   For example, "Abhijay Rana (abhijayrana@domain.com)" will become "Abhijay Rana".
+
+### 3. Tags Formatter (`formatTags.mjs`)
+
+This script formats "Tags" in Hubspot import format. Changes "taga, tagb, tagc" to ";taga;tagb;tagc;" for Hubspot multiselect property
+
+To use:
+1. Run the script with the command: `node formatContactOwner.mjs`
+2. Follow the prompts to enter:
+   - The input file name (e.g., input.xlsx)
+   - The output file name (e.g., output.xlsx)
+   - The column letter for the Tag column (e.g., I)
+
+Notes:
+- Double check pls
+- Has an exception for some stuff specific to the initial PSE eb -> hs migration but can be changed in code
 
 ## General Notes
 
