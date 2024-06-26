@@ -1,0 +1,16 @@
+{
+  "name": "pse-data-processor",
+  "version": "1.0.0",
+  "description": "A tool to reformat data in Excel sheets for Hubspot import",
+  "main": "formatContactData.mjs",
+  "type": "module",
+  "scripts": {
+    "start": "node formatContactData.mjs"
+  },
+  "keywords": ["excel", "phone", "formatter", "hubspot"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
+}
