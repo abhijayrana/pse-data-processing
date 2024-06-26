@@ -5,7 +5,7 @@
   "main": "formatContactData.mjs",
   "type": "module",
   "scripts": {
-    "start": "node formatContactData.mjs"
+    "start": "node formatPhoneNumber.mjs"
   },
   "keywords": ["excel", "phone", "formatter", "hubspot"],
   "author": "Your Name",

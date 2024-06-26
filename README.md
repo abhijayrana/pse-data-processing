@@ -1,7 +1,6 @@
 # PSE Data Processor
 
-This script formats Engagebay data in an Excel sheet, addressing issues with inconsistent formatting and Excel's automatic calculations, one usecase is cleanup for Hubspot import.
-
+This project contains scripts to format Engagebay data in Excel sheets, addressing issues with inconsistent formatting and Excel's automatic calculations, useful for cleanup before Hubspot import.
 
 ## Prerequisites
 
@@ -16,18 +15,40 @@ This script formats Engagebay data in an Excel sheet, addressing issues with inc
 
 ## Usage
 
-1. Open a terminal and navigate to the script's directory.
-2. Run the script with the command: `node formatContactData.mjs`
 
-3. Follow the prompts to enter:
-- The input file name (e.g., input.xlsx)
-- The output file name (e.g., output.xlsx)
-- The column letter for phone numbers (e.g., B)
+### 1. Phone Number Formatter (`formatPhoneNumber.mjs`)
 
-The script will create a new Excel file with the formatted phone numbers.
+This script reformats phone numbers in specified columns.
 
-## Notes
+To use:
+1. Run the script with the command: `node formatPhoneNumber.mjs`
+2. Follow the prompts to enter:
+   - The input file name (e.g., input.xlsx)
+   - The output file name (e.g., output.xlsx)
+   - The column letters for phone numbers, separated by commas (e.g., B,D,F)
 
-- The script assumes that the first row of your Excel sheet contains headers.
+Notes:
 - All phone numbers will be converted to the format: 11234567890 (no spaces or special characters).
-- The original Excel file is not modified; a new file is created with the formatted data.
+- If a phone number doesn't start with '1', it will be added automatically.
+
+### 2. Contact Owner Formatter (`formatContactOwner.mjs`)
+
+This script formats the "Owner" column (or any column with eb/hubspot user) by extracting only the name and removing the email address.
+
+To use:
+1. Run the script with the command: `node formatContactOwner.mjs`
+2. Follow the prompts to enter:
+   - The input file name (e.g., input.xlsx)
+   - The output file name (e.g., output.xlsx)
+   - The column letter for the Owner column (e.g., C)
+
+Notes:
+- The script will keep only the name part, removing everything after and including the opening parenthesis.
+  For example, "Abhijay Rana (abhijayrana@domain.com)" will become "Abhijay Rana".
+
+## General Notes
+
+- Both scripts assume that the first row of your Excel sheet contains headers.
+- The original Excel files are not modified; new files are created with the formatted data.
+- You can run these scripts separately or in sequence depending on your needs.
+

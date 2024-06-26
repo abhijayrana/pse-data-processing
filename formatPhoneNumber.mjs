@@ -10,7 +10,7 @@ function question(query) {
   return new Promise((resolve) => rl.question(query, resolve));
 }
 
-async function reformatPhoneNumbers(inputFile, outputFile) {
+async function reformatPhoneNumbers(inputFile, outputFile, phoneNumberColumns) {
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.readFile(inputFile);
 
@@ -18,11 +18,12 @@ async function reformatPhoneNumbers(inputFile, outputFile) {
   const newWorkbook = new ExcelJS.Workbook();
   const newWorksheet = newWorkbook.addWorksheet('Formatted Data');
 
-  const phoneNumberColumn = await question("Enter the column letter for phone numbers (e.g., 'B'): ");
-
   // Copy headers
   const headers = worksheet.getRow(1).values;
   newWorksheet.getRow(1).values = headers;
+
+  // Convert column letters to column numbers
+  const phoneColumnNumbers = phoneNumberColumns.map(col => worksheet.getColumn(col).number);
 
   // Process data rows
   worksheet.eachRow((row, rowNumber) => {
@@ -30,7 +31,7 @@ async function reformatPhoneNumbers(inputFile, outputFile) {
       const newRow = newWorksheet.getRow(rowNumber);
       
       row.eachCell((cell, colNumber) => {
-        if (cell.col === worksheet.getColumn(phoneNumberColumn).number) {
+        if (phoneColumnNumbers.includes(cell.col)) {
           // Get the original value or formula
           let phoneNumber = cell.value;
           
@@ -79,7 +80,10 @@ async function reformatPhoneNumbers(inputFile, outputFile) {
 async function main() {
   const inputFile = await question("Enter the input file name (e.g., input.xlsx): ");
   const outputFile = await question("Enter the new file name for output (e.g., output.xlsx): ");
-  await reformatPhoneNumbers(inputFile, outputFile);
+  const phoneColumnsInput = await question("Enter the column letters for phone numbers, separated by commas (e.g., B,D,F): ");
+  const phoneNumberColumns = phoneColumnsInput.split(',').map(col => col.trim().toUpperCase());
+
+  await reformatPhoneNumbers(inputFile, outputFile, phoneNumberColumns);
 }
 
 main();
