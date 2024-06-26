@@ -17,7 +17,26 @@ This project contains scripts to format Engagebay data in Excel sheets, addressi
 
 Make sure your original excel file is in the same directory as the .mjs files
 
-### 1. Phone Number Formatter (`formatPhoneNumber.mjs`)
+### Master Processor (`formatData.mjs`)
+
+This script combines all three formatting functions (phone numbers, contact owners, and tags) into a single process.
+
+To use:
+1. Run the script with the command: `node formatData.mjs`
+2. Follow the prompts to enter:
+   - The input file name (e.g., input.xlsx)
+   - The output file name (e.g., output.xlsx)
+   - The column letter for the Tags column (e.g., 'D')
+   - The column letters for phone numbers, separated by commas (e.g., B,D,F)
+   - The column letters for Owner columns, separated by commas (e.g., C,E,G)
+
+Notes:
+- This script will process the Excel file through all three formatting steps in sequence.
+- Temporary files are created during the process but are automatically deleted upon completion.
+
+### Individual Formatters
+
+#### 1. Phone Number Formatter (`formatPhoneNumber.mjs`)
 
 This script reformats phone numbers in specified columns.
 
@@ -32,7 +51,7 @@ Notes:
 - All phone numbers will be converted to the format: 11234567890 (no spaces or special characters).
 - If a phone number doesn't start with '1', it will be added automatically.
 
-### 2. Contact Owner Formatter (`formatContactOwner.mjs`)
+#### 2. Contact Owner Formatter (`formatContactOwner.mjs`)
 
 This script formats the "Owner" column (or any column with eb/hubspot user) by extracting only the name and removing the email address.
 
@@ -47,7 +66,7 @@ Notes:
 - The script will keep only the name part, removing everything after and including the opening parenthesis.
   For example, "Abhijay Rana (abhijayrana@domain.com)" will become "Abhijay Rana".
 
-### 3. Tags Formatter (`formatTags.mjs`)
+#### 3. Tags Formatter (`formatTags.mjs`)
 
 This script formats "Tags" in Hubspot import format. Changes "taga, tagb, tagc" to ";taga;tagb;tagc;" for Hubspot multiselect property
 
