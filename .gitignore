@@ -12,4 +12,5 @@ yarn-error.log*
 # Excel files 
 *.xlsx
 *.xls
-
+*.csv
+*.numbers
