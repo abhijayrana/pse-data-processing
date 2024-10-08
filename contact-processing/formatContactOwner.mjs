@@ -35,11 +35,13 @@ async function reformatOwnerColumns(inputFile, outputFile, ownerColumns) {
           // Get the original value
           let ownerValue = cell.value ? cell.value.toString() : '';
           
-          // Extract only the name (everything before the opening parenthesis)
-          let name = ownerValue.split('(')[0].trim();
+
+          //extract only the email (everything between the two parentheses)
+          let email = ownerValue.match(/\((.*?)\)/);
+          email = email ? email[1] : ''; // If match found, take the first captured group
           
           // Store the formatted name
-          newRow.getCell(colNumber).value = name;
+          newRow.getCell(colNumber).value = email;
         } else {
           // Copy other cell values as-is
           newRow.getCell(colNumber).value = cell.value;
